@@ -37,7 +37,7 @@ public class PlaygroundTestSuite
     public void webDriverWaitTest()
     {
         webDriver.findElement(By.cssSelector("button[aria-label='login']")).click();
-        new WebDriverWait(webDriver, 2000L).until(ExpectedConditions.visibilityOfElementLocated(By.className("alert-message")));
+        new WebDriverWait(webDriver, 2L).until(ExpectedConditions.visibilityOfElementLocated(By.className("alert-message")));
     }
 
     @Test
@@ -46,11 +46,11 @@ public class PlaygroundTestSuite
         Calendar c = Calendar.getInstance(TimeZone.getDefault());
         String date = String.format("%d%02d%02d", c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
         webDriver.findElement(By.cssSelector("a[aria-label='users']")).click();
-        new WebDriverWait(webDriver, 2000L).until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[name='gen-" + date + "-username']")));
+        new WebDriverWait(webDriver, 2L).until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[name='gen-" + date + "-username']")));
         webDriver.findElement(By.cssSelector("input[name='gen-" + date + "-username']")).sendKeys("test_username");
         webDriver.findElement(By.cssSelector("input[name='gen-" + date + "-password']")).sendKeys("test_password");
         webDriver.findElement(By.className("v-card__actions")).findElement(By.cssSelector("button[id='loginButton']")).click();
-        new WebDriverWait(webDriver, 2000L).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("v-messages__message")));
+        new WebDriverWait(webDriver, 2L).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("v-messages__message")));
         Assertions.assertEquals(webDriver.findElement(By.className("v-messages__message")).getText(), "Invalid user and password");
     }
 
