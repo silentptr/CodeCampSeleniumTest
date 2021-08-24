@@ -45,7 +45,6 @@ public class PlaygroundTestSuite
     {
         Calendar c = Calendar.getInstance(TimeZone.getDefault());
         String date = String.format("%d%02d%02d", c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
-        Logger.getLogger(getClass().getName()).info(date);
         webDriver.findElement(By.cssSelector("a[aria-label='users']")).click();
         new WebDriverWait(webDriver, 2000L).until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[name='gen-" + date + "-username']")));
         webDriver.findElement(By.cssSelector("input[name='gen-" + date + "-username']")).sendKeys("test_username");
