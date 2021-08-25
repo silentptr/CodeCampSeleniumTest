@@ -6,9 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Calendar;
-import java.util.TimeZone;
-
 public class HomePage
 {
     WebDriver _webDriver;
