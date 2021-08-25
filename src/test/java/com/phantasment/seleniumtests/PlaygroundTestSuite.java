@@ -74,7 +74,7 @@ public class PlaygroundTestSuite
         }
         catch (Throwable t)
         {
-            Assertions.assertTrue(false);
+            Assertions.fail();
         }
 
         for (Planet planet : planets)
