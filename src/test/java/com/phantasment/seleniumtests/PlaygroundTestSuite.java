@@ -1,3 +1,7 @@
+package com.phantasment.seleniumtests;
+
+import com.phantasment.seleniumtests.ui.HomePage;
+import com.phantasment.seleniumtests.ui.LogInDialog;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -6,6 +10,7 @@ public class PlaygroundTestSuite
 {
     WebDriver webDriver;
     HomePage homePage;
+    LogInDialog logInDialog;
 
     @BeforeEach
     public void beforeExampleTest()
@@ -14,6 +19,7 @@ public class PlaygroundTestSuite
         webDriver.get("https://d1iw6mb9di5l9r.cloudfront.net/");
         webDriver.manage().window().maximize();
         homePage = new HomePage(webDriver);
+        logInDialog = new LogInDialog(webDriver);
     }
 
     @Test
@@ -31,10 +37,11 @@ public class PlaygroundTestSuite
     @Test
     public void userLoginTest()
     {
-        homePage.clickUserButton().waitForLoginDialog();
-        homePage.sendLoginUserKeys("username").sendLoginPasswordKeys("password");
-        homePage.clickLoginButton().waitForLoginMessage();
-        Assertions.assertEquals(homePage.getLoginMessageText(), "Invalid user and password");
+        logInDialog.openDialog();
+        logInDialog.sendUsernameKeys("username");
+        logInDialog.setPasswordKeys("password");
+        logInDialog.clickLoginButton();
+        Assertions.assertEquals(logInDialog.getMessageText().get(), "Invalid user and password");
     }
 
     @Test

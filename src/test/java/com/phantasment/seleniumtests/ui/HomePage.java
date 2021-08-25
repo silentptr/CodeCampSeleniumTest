@@ -1,3 +1,5 @@
+package com.phantasment.seleniumtests.ui;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,23 +11,14 @@ import java.util.TimeZone;
 
 public class HomePage
 {
-    private WebDriver _webDriver;
-    private String date;
+    WebDriver _webDriver;
 
     public HomePage(WebDriver webDriver)
     {
         _webDriver = webDriver;
-        Calendar c = Calendar.getInstance(TimeZone.getDefault());
-        date = String.format("%d%02d%02d", c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
     }
 
     // CLICK FUNCTIONS
-
-    public HomePage clickLoginButton()
-    {
-        _webDriver.findElement(By.className("v-card__actions")).findElement(By.cssSelector("button[id='loginButton']")).click();
-        return this;
-    }
 
     public HomePage clickFakeLoginButton()
     {
@@ -33,21 +26,9 @@ public class HomePage
         return this;
     }
 
-    public HomePage clickUserButton()
-    {
-        _webDriver.findElement(By.cssSelector("a[aria-label='users']")).click();
-        return this;
-    }
-
     public HomePage clickForenameSubmitButton()
     {
         _webDriver.findElement(By.id("submit")).click();
-        return this;
-    }
-
-    public HomePage clickAgreeCheckbox()
-    {
-        _webDriver.findElement(By.className("v-input--selection-controls__ripple")).click();
         return this;
     }
 
@@ -64,6 +45,11 @@ public class HomePage
         formsLink.click();
         new WebDriverWait(_webDriver, 2L).until(ExpectedConditions.visibilityOf(_webDriver.findElement(By.cssSelector("input[name='name']"))));
         return this;
+    }
+
+    public void clickAgreeCheckbox()
+    {
+        _webDriver.findElement(By.className("v-input--selection-controls__ripple")).click();
     }
 
     // SELECT FUNCTIONS
@@ -89,18 +75,6 @@ public class HomePage
 
     // WAIT FUNCTIONS
 
-    public HomePage waitForLoginMessage()
-    {
-        new WebDriverWait(_webDriver, 2L).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("v-messages__message")));
-        return this;
-    }
-
-    public HomePage waitForLoginDialog()
-    {
-        new WebDriverWait(_webDriver, 2L).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("input[name='gen-" + date + "-username']")));
-        return this;
-    }
-
     public HomePage waitForFakeLoginMessage()
     {
         new WebDriverWait(_webDriver, 2L).until(ExpectedConditions.visibilityOfElementLocated(By.className("alert-message")));
@@ -114,18 +88,6 @@ public class HomePage
     }
 
     // SEND KEY FUNCTIONS
-
-    public HomePage sendLoginUserKeys(CharSequence keys)
-    {
-        _webDriver.findElement(By.cssSelector("input[name='gen-" + date + "-username']")).sendKeys(keys);
-        return this;
-    }
-
-    public HomePage sendLoginPasswordKeys(CharSequence keys)
-    {
-        _webDriver.findElement(By.cssSelector("input[name='gen-" + date + "-password']")).sendKeys(keys);
-        return this;
-    }
 
     public HomePage sendForenameKeys(CharSequence keys)
     {
@@ -143,12 +105,5 @@ public class HomePage
     {
         _webDriver.findElement(By.cssSelector("input[name='email']")).sendKeys(keys);
         return this;
-    }
-
-    // GETTERS
-
-    public String getLoginMessageText()
-    {
-        return _webDriver.findElement(By.className("v-messages__message")).getText();
     }
 }
