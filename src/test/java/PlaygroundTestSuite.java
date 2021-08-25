@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -54,14 +55,17 @@ public class PlaygroundTestSuite
     @Test
     public void formsModernErrorTest()
     {
-        new WebDriverWait(webDriver, 2L).until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[href='#/forms']")));
-        webDriver.findElement(By.cssSelector("a[href='#/forms']")).click();
-        new WebDriverWait(webDriver, 2L).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[name='name']")));
-        webDriver.findElement(By.cssSelector("input[name='name']")).sendKeys("a");
+        WebElement formsLink = webDriver.findElement(By.cssSelector("a[href='#/forms']"));
+        new WebDriverWait(webDriver, 2L).until(ExpectedConditions.elementToBeClickable(formsLink));
+        formsLink.click();
+        WebElement nameField = webDriver.findElement(By.cssSelector("input[name='name']"));
+        new WebDriverWait(webDriver, 2L).until(ExpectedConditions.visibilityOf(nameField));
+        nameField.sendKeys("a");
         webDriver.findElement(By.cssSelector("input[name='email']")).sendKeys("a@a.aa");
         webDriver.findElement(By.className("v-select__selections")).click();
-        new WebDriverWait(webDriver, 2L).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[role='listbox']")));
-        webDriver.findElement(By.cssSelector("div[role='listbox']")).findElements(By.cssSelector("div[role='option']")).forEach(option ->
+        WebElement listBox = webDriver.findElement(By.cssSelector("div[role='listbox']"));
+        new WebDriverWait(webDriver, 2L).until(ExpectedConditions.visibilityOf(listBox));
+        listBox.findElements(By.cssSelector("div[role='option']")).forEach(option ->
         {
             if (option.findElement(By.className("v-list-item__content")).findElement(By.className("v-list-item__title")).getText().equals("QLD"))
             {
