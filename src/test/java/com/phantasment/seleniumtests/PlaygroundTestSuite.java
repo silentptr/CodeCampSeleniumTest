@@ -8,7 +8,7 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PlaygroundTestSuite
 {
@@ -24,7 +24,6 @@ public class PlaygroundTestSuite
         webDriver.get("https://d1iw6mb9di5l9r.cloudfront.net/");
         webDriver.manage().window().maximize();
         homePage = new HomePage(webDriver);
-        planetPage = new PlanetPage(webDriver);
         logInDialog = new LogInDialog(webDriver);
     }
 
@@ -66,18 +65,18 @@ public class PlaygroundTestSuite
     @Test
     public void planetPageTest()
     {
-        planetPage.gotoPage();
-        ArrayList<Planet> planets = null;
-
         try
         {
-            planets = planetPage.getPlanets();
+            planetPage = new PlanetPage(webDriver);
         }
         catch (Throwable t)
         {
             t.printStackTrace();
             Assertions.fail();
         }
+
+        planetPage.gotoPage();
+        List<Planet> planets = planetPage.getPlanets();
 
         for (Planet planet : planets)
         {
