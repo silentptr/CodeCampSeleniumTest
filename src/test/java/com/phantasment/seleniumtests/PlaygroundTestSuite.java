@@ -85,7 +85,7 @@ public class PlaygroundTestSuite
             switch (planet.getName())
             {
                 case "Mercury":
-                    distance = 57910000;
+                    distance = 57910000L;
                     radius = 2439.7d;
                     break;
                 case "Venus":
