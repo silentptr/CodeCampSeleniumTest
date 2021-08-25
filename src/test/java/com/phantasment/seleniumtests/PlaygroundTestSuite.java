@@ -126,6 +126,6 @@ public class PlaygroundTestSuite
     @AfterEach
     public void afterExampleTest()
     {
-        //webDriver.quit();
+        webDriver.quit();
     }
 }
