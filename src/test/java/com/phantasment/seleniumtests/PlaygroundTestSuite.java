@@ -116,7 +116,6 @@ public class PlaygroundTestSuite
                     distance = 4495000L;
                     radius = 24622.0d;
                     break;
-                default:
             }
 
             Assertions.assertFalse(distance == 0L && radius == 0.0d);
