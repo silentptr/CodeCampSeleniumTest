@@ -34,7 +34,7 @@ public class PlaygroundTestSuite
         homePage.clickUserButton().waitForLoginDialog();
         homePage.sendLoginUserKeys("username").sendLoginPasswordKeys("password");
         homePage.clickLoginButton().waitForLoginMessage();
-        Assertions.assertEquals(homePage.getLoginMessage(), "Invalid user and password");
+        Assertions.assertEquals(homePage.getLoginMessageText(), "Invalid user and password");
     }
 
     @Test

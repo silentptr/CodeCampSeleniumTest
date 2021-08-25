@@ -19,6 +19,8 @@ public class HomePage
         date = String.format("%d%02d%02d", c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
     }
 
+    // CLICK FUNCTIONS
+
     public HomePage clickLoginButton()
     {
         _webDriver.findElement(By.className("v-card__actions")).findElement(By.cssSelector("button[id='loginButton']")).click();
@@ -55,6 +57,17 @@ public class HomePage
         return this;
     }
 
+    public HomePage clickFormsButton()
+    {
+        WebElement formsLink = _webDriver.findElement(By.cssSelector("a[href='#/forms']"));
+        new WebDriverWait(_webDriver, 2L).until(ExpectedConditions.elementToBeClickable(formsLink));
+        formsLink.click();
+        new WebDriverWait(_webDriver, 2L).until(ExpectedConditions.visibilityOf(_webDriver.findElement(By.cssSelector("input[name='name']"))));
+        return this;
+    }
+
+    // SELECT FUNCTIONS
+
     public boolean selectStateDropdown(String selection)
     {
         boolean validSelection = false;
@@ -73,6 +86,8 @@ public class HomePage
 
         return validSelection;
     }
+
+    // WAIT FUNCTIONS
 
     public HomePage waitForLoginMessage()
     {
@@ -98,10 +113,7 @@ public class HomePage
         return this;
     }
 
-    public String getLoginMessage()
-    {
-        return _webDriver.findElement(By.className("v-messages__message")).getText();
-    }
+    // SEND KEY FUNCTIONS
 
     public HomePage sendLoginUserKeys(CharSequence keys)
     {
@@ -133,12 +145,10 @@ public class HomePage
         return this;
     }
 
-    public HomePage clickFormsButton()
+    // GETTERS
+
+    public String getLoginMessageText()
     {
-        WebElement formsLink = _webDriver.findElement(By.cssSelector("a[href='#/forms']"));
-        new WebDriverWait(_webDriver, 2L).until(ExpectedConditions.elementToBeClickable(formsLink));
-        formsLink.click();
-        new WebDriverWait(_webDriver, 2L).until(ExpectedConditions.visibilityOf(_webDriver.findElement(By.cssSelector("input[name='name']"))));
-        return this;
+        return _webDriver.findElement(By.className("v-messages__message")).getText();
     }
 }
