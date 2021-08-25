@@ -24,7 +24,7 @@ public class PlanetPage
     {
         this.webDriver = webDriver;
         planetsElement = webDriver.findElement(By.className("planets"));
-        loadPlanets();
+        planets = loadPlanets();
     }
 
     public void gotoPage()
