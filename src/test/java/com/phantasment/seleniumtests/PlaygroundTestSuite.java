@@ -118,7 +118,7 @@ public class PlaygroundTestSuite
                     break;
             }
 
-            Assertions.assertFalse(distance == 0L && radius == 0.0d);
+            Assertions.assertFalse(distance == 0L || radius == 0.0d);
             Assertions.assertTrue(planet.getDistanceFromSun() == distance && planet.getRadius() == radius);
         }
     }
