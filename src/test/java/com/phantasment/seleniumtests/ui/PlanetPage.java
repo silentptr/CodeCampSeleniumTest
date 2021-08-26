@@ -19,10 +19,10 @@ public class PlanetPage
     private WebDriver webDriver;
     private ArrayList<Planet> planets;
 
-    public PlanetPage(WebDriver webDriver) throws ParseException
+    public PlanetPage(WebDriver webDriver)
     {
         this.webDriver = webDriver;
-        planets = loadPlanets();
+        planets = new ArrayList<>();
     }
 
     public void gotoPage()
@@ -31,9 +31,9 @@ public class PlanetPage
         new WebDriverWait(webDriver, 2L).until(ExpectedConditions.visibilityOfElementLocated(By.className("v-card__text")));
     }
 
-    private ArrayList<Planet> loadPlanets() throws ParseException
+    public void loadPlanets() throws ParseException
     {
-        ArrayList<Planet> planets = new ArrayList<>();
+        planets.clear();
         NumberFormat nf = NumberFormat.getNumberInstance();
 
         for (WebElement e : webDriver.findElements(By.className("planet")))
@@ -46,8 +46,6 @@ public class PlanetPage
                     nf.parse(radius.substring(0, radius.length() - 3)).doubleValue())
             );
         }
-
-        return planets;
     }
 
     public List<Planet> getPlanets()

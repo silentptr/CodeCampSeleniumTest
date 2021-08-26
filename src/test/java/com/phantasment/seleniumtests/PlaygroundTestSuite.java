@@ -73,8 +73,7 @@ public class PlaygroundTestSuite
         }
         catch (Throwable t)
         {
-            t.printStackTrace();
-            Assertions.fail();
+            Assertions.fail(t);
         }
 
         planetPage.gotoPage();
@@ -89,17 +88,19 @@ public class PlaygroundTestSuite
     @Test
     public void planetPageNeptuneTest()
     {
+        planetPage = new PlanetPage(webDriver);
+        planetPage.gotoPage();
+
         try
         {
-            planetPage = new PlanetPage(webDriver);
+            planetPage.loadPlanets();
         }
         catch (Throwable t)
         {
             t.printStackTrace();
-            Assertions.fail();
+            Assertions.fail(t);
         }
 
-        planetPage.gotoPage();
         Planet planet = planetPage.getPlanetBy(new MatchPlanetByLargestDistance());
         Assertions.assertNotNull(planet);
         Assertions.assertEquals(planet.getName(), "Neptune");
