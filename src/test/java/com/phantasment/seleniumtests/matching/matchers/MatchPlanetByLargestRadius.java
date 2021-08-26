@@ -10,7 +10,7 @@ public class MatchPlanetByLargestRadius implements Matchable<Planet>
     @Override
     public boolean match(Planet planet)
     {
-        if (p == null && planet.getRadius() > p.getRadius())
+        if (p == null || planet.getRadius() > p.getRadius())
         {
             p = planet;
             return true;
