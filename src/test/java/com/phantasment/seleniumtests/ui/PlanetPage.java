@@ -17,13 +17,11 @@ import java.util.List;
 public class PlanetPage
 {
     private WebDriver webDriver;
-    private WebElement planetsElement;
     private ArrayList<Planet> planets;
 
     public PlanetPage(WebDriver webDriver) throws ParseException
     {
         this.webDriver = webDriver;
-        planetsElement = webDriver.findElement(By.className("planets"));
         planets = loadPlanets();
     }
 
@@ -38,7 +36,7 @@ public class PlanetPage
         ArrayList<Planet> planets = new ArrayList<>();
         NumberFormat nf = NumberFormat.getNumberInstance();
 
-        for (WebElement e : planetsElement.findElements(By.className("planet")))
+        for (WebElement e : webDriver.findElements(By.className("planet")))
         {
             String distance = e.findElement(By.className("distance")).getText();
             String radius = e.findElement(By.className("radius")).getText();
@@ -59,14 +57,16 @@ public class PlanetPage
 
     public Planet getPlanetBy(Matchable<Planet> matcher)
     {
+        Planet result = null;
+
         for (Planet p : planets)
         {
             if (matcher.match(p))
             {
-                return p;
+                result = p;
             }
         }
 
-        return null;
+        return result;
     }
 }

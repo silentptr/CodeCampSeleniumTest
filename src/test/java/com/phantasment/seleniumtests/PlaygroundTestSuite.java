@@ -1,5 +1,7 @@
 package com.phantasment.seleniumtests;
 
+import com.phantasment.seleniumtests.matching.matchers.MatchPlanetByLargestDistance;
+import com.phantasment.seleniumtests.matching.matchers.MatchPlanetByName;
 import com.phantasment.seleniumtests.ui.HomePage;
 import com.phantasment.seleniumtests.ui.LogInDialog;
 import com.phantasment.seleniumtests.ui.PlanetPage;
@@ -82,6 +84,25 @@ public class PlaygroundTestSuite
         {
             Assertions.assertTrue(PlanetChecker.isValidPlanet(planet));
         }
+    }
+
+    @Test
+    public void planetPageNeptuneTest()
+    {
+        try
+        {
+            planetPage = new PlanetPage(webDriver);
+        }
+        catch (Throwable t)
+        {
+            t.printStackTrace();
+            Assertions.fail();
+        }
+
+        planetPage.gotoPage();
+        Planet planet = planetPage.getPlanetBy(new MatchPlanetByLargestDistance());
+        Assertions.assertFalse(planet == null);
+        Assertions.assertTrue(planet.getName().equals("Neptune"));
     }
 
     @AfterEach
