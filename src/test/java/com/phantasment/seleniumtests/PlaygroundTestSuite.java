@@ -101,8 +101,8 @@ public class PlaygroundTestSuite
 
         planetPage.gotoPage();
         Planet planet = planetPage.getPlanetBy(new MatchPlanetByLargestDistance());
-        Assertions.assertFalse(planet == null);
-        Assertions.assertTrue(planet.getName().equals("Neptune"));
+        Assertions.assertNotNull(planet);
+        Assertions.assertEquals(planet.getName(), "Neptune");
     }
 
     @AfterEach
