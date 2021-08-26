@@ -97,7 +97,6 @@ public class PlaygroundTestSuite
         }
         catch (Throwable t)
         {
-            t.printStackTrace();
             Assertions.fail(t);
         }
 
