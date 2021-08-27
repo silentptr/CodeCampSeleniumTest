@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class PlanetPage
 {
@@ -62,6 +63,21 @@ public class PlanetPage
             if (matcher.match(p))
             {
                 result = p;
+            }
+        }
+
+        return result;
+    }
+
+    public ArrayList<Planet> getPlanetBy(Predicate<Planet> predicate)
+    {
+        ArrayList<Planet> result = new ArrayList<>();
+
+        for (Planet p : planets)
+        {
+            if (predicate.test(p))
+            {
+                result.add(p);
             }
         }
 
