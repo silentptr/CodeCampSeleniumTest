@@ -41,6 +41,11 @@ public class HomePage
         return new ShoppingCart(items);
     }
 
+    public WebElement getCartTotalElement()
+    {
+        return _webDriver.findElement(By.className("cart")).findElement(By.className("cart-total"));
+    }
+
     // CLICK FUNCTIONS
 
     public HomePage clickFakeLoginButton()

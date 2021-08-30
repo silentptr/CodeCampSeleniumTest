@@ -5,6 +5,7 @@ import com.phantasment.seleniumtests.ui.*;
 import com.phantasment.seleniumtests.util.PlanetChecker;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.math.BigDecimal;
@@ -133,7 +134,11 @@ public class PlaygroundTestSuite
             Assertions.assertEquals(quantity, item.getQuantity());
         }
 
-        Assertions.assertEquals(new BigDecimal("109.97"), cart.getTotal());
+        BigDecimal total = new BigDecimal("109.97");
+        Assertions.assertEquals(total, cart.getTotal());
+        WebElement totalElement = homePage.getCartTotalElement();
+        BigDecimal tableTotal = new BigDecimal(totalElement.getText().replace("$", ""));
+        Assertions.assertEquals(total, tableTotal);
     }
 
     @AfterEach
