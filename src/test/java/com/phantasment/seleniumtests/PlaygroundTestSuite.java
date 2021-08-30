@@ -1,15 +1,13 @@
 package com.phantasment.seleniumtests;
 
 import com.phantasment.seleniumtests.matching.matchers.MatchPlanetByLargestDistance;
-import com.phantasment.seleniumtests.matching.matchers.MatchPlanetByName;
-import com.phantasment.seleniumtests.ui.HomePage;
-import com.phantasment.seleniumtests.ui.LogInDialog;
-import com.phantasment.seleniumtests.ui.PlanetPage;
+import com.phantasment.seleniumtests.ui.*;
 import com.phantasment.seleniumtests.util.PlanetChecker;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class PlaygroundTestSuite
@@ -23,7 +21,7 @@ public class PlaygroundTestSuite
     public void beforeExampleTest()
     {
         webDriver = new ChromeDriver();
-        webDriver.get("https://d1iw6mb9di5l9r.cloudfront.net/");
+        webDriver.get("https://d21vtxezke9qd9.cloudfront.net/");
         webDriver.manage().window().maximize();
         homePage = new HomePage(webDriver);
         logInDialog = new LogInDialog(webDriver);
@@ -103,6 +101,39 @@ public class PlaygroundTestSuite
         Planet planet = planetPage.getPlanetBy(new MatchPlanetByLargestDistance());
         Assertions.assertNotNull(planet);
         Assertions.assertEquals(planet.getName(), "Neptune");
+    }
+
+    @Test
+    public void tableTest()
+    {
+        ShoppingCart cart = null;
+
+        try
+        {
+            cart = homePage.getShoppingCart();
+        }
+        catch (Throwable t)
+        {
+            Assertions.fail(t);
+        }
+
+        List<CartItem> items = cart.getItems();
+        Assertions.assertEquals(2, items.size());
+
+        for (int i = 0; i < 2; ++i)
+        {
+            int quantity = i == 0 ? 1 : 2;
+            String name = i == 0 ? "Levi 501s classic denim" : "Plain crewneck T-shirt (white)";
+            BigDecimal price = i == 0 ? new BigDecimal("69.99") : new BigDecimal("19.99");
+            BigDecimal subTotal = i == 0 ? new BigDecimal("69.99") : new BigDecimal("39.98");
+            CartItem item = items.get(i);
+            Assertions.assertEquals(name, item.getName());
+            Assertions.assertEquals(price, item.getPrice());
+            Assertions.assertEquals(subTotal, item.getSubtotal());
+            Assertions.assertEquals(quantity, item.getQuantity());
+        }
+
+        Assertions.assertEquals(new BigDecimal("109.97"), cart.getTotal());
     }
 
     @AfterEach

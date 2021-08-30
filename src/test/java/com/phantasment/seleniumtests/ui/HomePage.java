@@ -6,6 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomePage
 {
     WebDriver _webDriver;
@@ -13,6 +18,27 @@ public class HomePage
     public HomePage(WebDriver webDriver)
     {
         _webDriver = webDriver;
+    }
+
+    // GET FUNCTIONS
+
+    public ShoppingCart getShoppingCart() throws ParseException
+    {
+        ArrayList<CartItem> items = new ArrayList<>();
+
+        WebElement table = _webDriver.findElement(By.className("cart"));
+        WebElement tableBody = table.findElement(By.tagName("tbody"));
+
+        for (WebElement tableRow : tableBody.findElements(By.tagName("tr")))
+        {
+            List<WebElement> rowData = tableRow.findElements(By.tagName("td"));
+            int quantity = Integer.parseInt(rowData.get(0).findElement(By.cssSelector("input[type=number]")).getAttribute("value"));
+            String name = rowData.get(1).getText();
+            BigDecimal price = new BigDecimal(rowData.get(2).getText().replace("$", ""));
+            items.add(new CartItem(name, price, quantity));
+        }
+
+        return new ShoppingCart(items);
     }
 
     // CLICK FUNCTIONS
